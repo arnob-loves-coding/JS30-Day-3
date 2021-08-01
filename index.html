@@ -5,8 +5,80 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>day-3</title>
+    <style>
+      :root {
+        --spacing: 10px;
+        --blur: 10px;
+        --color: #000000;
+      }
+      body {
+        background-color: rgb(20, 11, 100);
+      }
+      img {
+        padding: var(--spacing);
+        filter: blur(var(--blur));
+        background-color: var(--color);
+      }
+      .img {
+        display: grid;
+        place-items: center;
+        height: 90vh;
+      }
+      .controls {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+      }
+      input {
+        margin: 0 50px;
+      }
+      label {
+        font-size: 25px;
+        color: white;
+      }
+    </style>
   </head>
   <body>
-    <script></script>
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input
+        type="range"
+        name="spacing"
+        id="spacing"
+        min="0"
+        max="200"
+        value="10"
+        data-resizing="px"
+      />
+      <label for="blur">Blur:</label>
+      <input
+        type="range"
+        name="blur"
+        id="blur"
+        min="0"
+        max="200"
+        value="10"
+        data-resizing="px"
+      />
+      <label for="color">Background-color:</label>
+      <input type="color" name="color" id="color" />
+    </div>
+    <div class="img">
+      <img src="img.jpg" alt="" />
+    </div>
+    <script>
+      const inputs = document.querySelectorAll(".controls input");
+      function handleUpdate() {
+        const suffix = this.dataset.resizing || "";
+        document.documentElement.style.setProperty(
+          `--${this.name}`,
+          this.value + suffix
+        );
+      }
+      inputs.forEach((input) => input.addEventListener("change", handleUpdate));
+      inputs.forEach((input) =>
+        input.addEventListener("mousemove", handleUpdate)
+      );
+    </script>
   </body>
 </html>
